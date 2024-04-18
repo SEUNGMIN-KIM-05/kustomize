@@ -100,7 +100,7 @@ pipeline {
     stage('Push to Git Repository') {
       steps {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: githubCredential, usernameVariable: 'SEUNGMIN-KIM-05', passwordVariable: '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']]) {
-             sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/SERUNGMIN-KIM/kustomize.git"       
+             sh "git push https://${SEUNGMIN-KIM-05}:${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}@github.com/SERUNGMIN-KIM/kustomize.git"       
         }
       }
     }

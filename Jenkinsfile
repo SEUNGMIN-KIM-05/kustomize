@@ -90,12 +90,26 @@ pipeline {
         // 이미지 태그 변경 후 메인 브랜치에 푸시
         sh "git config --global user.email ${gitEmail}"
         sh "git config --global user.name ${gitName}"
-        sh "cd prod && kustomize edit set image ${awsecrRegistry}:${currentBuild.number}"
+        
+      //  sh "cd prod && kustomize edit set image ${awsecrRegistry}:${currentBuild.number}"
       //  sh "cd prod && sed -i 's/eks-demo-repo:.*/eks-demo-repo:${currentBuild.number}/g' deployment.yaml"
-        sh "git add -A"
-        sh "git status"
-        sh "git commit -m 'update the image tag'"
-        sh "git branch -M main"
+        
+        // Frontend 배포
+          sh "cd prod/frontend && kustomize edit set image ${awsecrRegistry}:${currentBuild.number}"
+          sh "cd prod/frontend && git add -A"
+          sh "cd prod/frontend && git commit -m 'Update frontend image tag'"
+
+        // Backend 배포
+          sh "cd prod/backend && kustomize edit set image ${awsecrRegistry}:${currentBuild.number}"
+          sh "cd prod/backend && git add -A"
+          sh "cd prod/backend && git commit -m 'Update backend image tag'"
+        
+
+        
+      //  sh "git add -A"
+      //  sh "git status"
+      //  sh "git commit -m 'update the image tag'"
+      //  sh "git branch -M main"
               }
     }
     
